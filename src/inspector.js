@@ -155,9 +155,9 @@ Inspector.prototype.inspectObject = function(object) {
       if (k === "__gohashid") continue; // skip internal GoJS hash property
       if (this._inspectedProperties[k]) continue; // already exists
       if (declaredProperties[k] && !this.canShowProperty(k, declaredProperties[k], inspectedObject)) continue;
-    //   if(data[k] ===undefined) {
-    //       data[k] =''
-    //   }
+      if(data[k] ===undefined) {
+          data[k] =''
+      }
       tbody.appendChild(this.buildPropertyRow(k, data[k]));
     }
   }
