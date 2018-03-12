@@ -14,7 +14,8 @@ const projectRoot = path.resolve(__dirname, "./src");
 module.exports = {
     entry: {
         //"main": './src/main.js',
-        "index": './src/go.js',
+        "index": './src/index.js',
+        "go":'./src/go.js',
         "jquery":'jquery'
     },
     resolve: {
@@ -34,7 +35,10 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /node_modules/,//配置是将node_modules文件下的内容排除在外，降低编译时间。
+                exclude: [
+                    /node_modules/,
+                    path.resolve(__dirname, "src/go.js")
+                ],//配置是将node_modules文件下的内容排除在外，降低编译时间。
                 loader: "babel-loader",
             },
             {
@@ -119,14 +123,17 @@ module.exports = {
         //     paths: glob.sync(path.join(__dirname, './src/*.html')),//绝对路径
         // }),  // 清除无用class
 
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name:['common','jquery'], // 注意不要.js后缀
-        //     filename: "commons.js",
-        //     chunks:['main','index'],
-        //     minSize:1
-        //     // name: ["common", "main", "index", "load"],
-        //     // minChunks: 1
-        // }),
+        new webpack.optimize.CommonsChunkPlugin({
+            // name:['common','jquery'], // 注意不要.js后缀
+            // filename: "commons.js",
+            // chunks:['main','index'],
+            name:['go'], // 注意不要.js后缀
+            filename: "go.js",
+            chunks:['go'],
+            minSize:1
+            // name: ["common", "main", "index", "load"],
+            // minChunks: 1
+        }),
         // 默认会把所有入口节点的公共代码提取出来,生成一个common.js  []对应相应的节点
 
     ]
