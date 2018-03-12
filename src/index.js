@@ -327,23 +327,7 @@ $(function(){
                     
                 }
             });
-            // myDiagram.addModelChangedListener(function(e) {
-            //     if (e.isTransactionFinished) console.log(e);
-            // });
-        var Select_Port = null;
-        myDiagram.addDiagramListener("ObjectSingleClicked", function(e) {
-            Select_Port = e.subject.part;
-
-        });
-        myDiagram.addDiagramListener("ObjectContextClicked", function(e) {
-            Select_Port = e.subject.part;
-        });
-        myDiagram.addDiagramListener("BackgroundSingleClicked", function(e) {
-            Select_Port = null;
-        });
-        // myDiagram.addDiagramListener("ChangedSelection", function(e) { 
-        //     Select_Port = e.subject.part;
-        // });
+        
         function reformCanvas(){
            if("undefined" == typeof myDiagram){
                     return false;
@@ -357,12 +341,11 @@ $(function(){
              myDiagram.undoManager.undo();
         } 
         function deleteCanvas(){
-            if(Select_Port){
-                if("undefined" == typeof myDiagram){
-                    return false;
-                }
-                myDiagram.remove(Select_Port);
+            if("undefined" == typeof myDiagram){
+                return false;
             }
+            myDiagram.commandHandler.deleteSelection();
+        
             
         } 
         $("#reformCanvas").click(function(){
